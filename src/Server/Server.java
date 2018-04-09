@@ -18,7 +18,7 @@ public class Server extends Thread{
             serverShocket = new ServerSocket(2000);
             System.out.println ("Creado el Socket del servidor");
             try {
-                while (true) {
+                while(true) {
                     System.out.println ("Esperando una conexion");
                     new Server (serverShocket.accept());
                 }
