@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import Model.Player;
 
 public class Client {
 
@@ -19,7 +20,7 @@ public class Client {
 
         try {
             String serverAddress = JOptionPane.showInputDialog("Por favor introduzca la IP del servidor al que te quieres conectar");
-            dataShocket = new Socket(serverAddress, 2000);
+            dataShocket = new Socket(serverAddress, 8000);
             serverWrrite = new PrintWriter(dataShocket.getOutputStream(), true);
             serverRead = new BufferedReader(new InputStreamReader(dataShocket.getInputStream()));
         } catch (UnknownHostException e) {
@@ -32,9 +33,10 @@ public class Client {
 
         try {
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-            System.out.print ("entrada cliente 2: ");
-            String linea = input.readLine();
-
+            String linea = JOptionPane.showInputDialog("Introduce tu nombre de usuario");
+            Player player = new Player(linea);
+            //Habria que mandar el jugador al SnakePanel del servidor snakepanel.getPlayers.add(player);
+            
             while (!(linea.equals("x"))) {
                 serverWrrite.println(linea);
                 System.out.println("eco: " + serverRead.readLine());
