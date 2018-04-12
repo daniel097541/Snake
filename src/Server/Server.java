@@ -1,5 +1,6 @@
 package Server;
 
+import Model.Player;
 import Model.SnakePanel;
 
 import java.io.BufferedReader;
@@ -55,9 +56,11 @@ public class Server extends Thread{
         System.out.println ("Lanzado nuevo Thread");
         try {
             Integer id = generateId();
+            snakePanel.getPlayers().add(new Player(id)); //Registramos jugador en el modelo
             //Habria que pasarle el id al jugador player.setId(id);
-            PrintWriter clientWrite = new PrintWriter(dataShocket.getOutputStream(), true);
-            BufferedReader clientRead = new BufferedReader(new InputStreamReader( dataShocket.getInputStream()));
+            PrintWriter clientWrite = new PrintWriter(dataShocket.getOutputStream(), true); //salida
+            clientWrite.write("Aqui mandariamos el ID al jugador");
+            BufferedReader clientRead = new BufferedReader(new InputStreamReader(dataShocket.getInputStream())); //entrada
             String line;
             while ((line = clientRead.readLine()) != null) {
                 System.out.println ("Servidor: " + line);

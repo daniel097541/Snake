@@ -2,23 +2,14 @@ package Model;
 
 public class Player {
 
-    private String name;
     private Integer id;
     private Snake snake;
     private Integer points;
 
-    public Player(String name){
-        this.name = name;
+    public Player(Integer id){
+        this.id = id;
         this.snake = new Snake();
         this.points = 0;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Snake getSnake() {
