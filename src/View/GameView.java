@@ -23,12 +23,12 @@ public class GameView extends javax.swing.JFrame {
     JPanel inicial;
     int inicialX;
     int inicialY;
-    
     int direccion = 3;
+    SnakePanel p;
     /**
      * Creates new form GameView2
      */
-    public GameView() {
+    public GameView(SnakePanel p) {
         initComponents();
         for (int i = 0; i < 40; i++) {
             for (int j = 0; j < 60; j++) {
@@ -40,7 +40,11 @@ public class GameView extends javax.swing.JFrame {
         inicial.setBackground(Color.red);
         inicialX = 0;
         inicialY = 0;
+        this.p=p;
+    }
 
+    private GameView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
@@ -86,12 +90,25 @@ public class GameView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        if(evt.getKeyChar()==KeyEvent.VK_P){
+        if (evt.getKeyCode() == KeyEvent.VK_P) {
+            boolean pausa = true;
+            if (p.isPausa()) {
+                pausa = false;
+            }
+            p.setPausa(pausa);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ADD) {
+            if (this.p.getVelocidad() <= 600) {
+                this.p.setVelocidad(this.p.getVelocidad() - 50);
 
+            }
         }
-        if(evt.getKeyChar()==KeyEvent.VK_ADD){
-            
+        if (evt.getKeyCode() == KeyEvent.VK_SUBTRACT) {
+            if (this.p.getVelocidad() >= 50) {
+                this.p.setVelocidad(this.p.getVelocidad() + 50);
+            }
         }
+
         actualizarPosicion(evt);
     }//GEN-LAST:event_formKeyPressed
 

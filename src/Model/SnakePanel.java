@@ -14,7 +14,7 @@ public class SnakePanel extends Thread {
     public SnakePanel() {
         this.players = new ArrayList<>();
         this.bonuses = new ArrayList<>();
-        g = new GameView();
+        g = new GameView(this);
         g.setVisible(true);
         velocidad = 500;
         pausa = false;
