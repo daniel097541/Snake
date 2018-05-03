@@ -13,8 +13,9 @@ import java.util.Objects;
 
 public class Server extends Thread{
 
+
     private Socket dataShocket;
-    private SnakePanel snakePanel = new SnakePanel();
+    private SnakePanel snakePanel = new SnakePanel(); 
     
     public static void main(String[] args) {
         ServerSocket serverShocket = null;
@@ -49,17 +50,17 @@ public class Server extends Thread{
 
     private Server(Socket clientSoc) {
         dataShocket = clientSoc;
-        start();
+        snakePanel.start();
     }
 
     public void run() {
         System.out.println ("Lanzado nuevo Thread");
         try {
-            Integer id = generateId();
-            snakePanel.getPlayers().add(new Player(id)); //Registramos jugador en el modelo
+            //Integer id = generateId();
+            //snakePanel.getPlayers().add(new Player(id)); //Registramos jugador en el modelo
             //Habria que pasarle el id al jugador player.setId(id);
             PrintWriter clientWrite = new PrintWriter(dataShocket.getOutputStream(), true); //salida
-            clientWrite.write("Aqui mandariamos el ID al jugador");
+            clientWrite.write("Se ha escrito el id del jugador");
             BufferedReader clientRead = new BufferedReader(new InputStreamReader(dataShocket.getInputStream())); //entrada
             String line;
             while ((line = clientRead.readLine()) != null) {
@@ -75,8 +76,10 @@ public class Server extends Thread{
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
+    }
+    
+    /*
     public int generateId(){
         Integer id;
         if(snakePanel.getPlayers().isEmpty()){
@@ -86,4 +89,5 @@ public class Server extends Thread{
         }
         return id;
     }
+*/
 }
