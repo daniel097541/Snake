@@ -4,23 +4,24 @@ import java.util.Random;
 
 public class Bonus {
 
-    private Integer bonus;
+    private Integer bonusX;
+    private Integer bonusY;
 
-    public Bonus(){
-        this.bonus = generateRandomNumber();
+    public Bonus() {
+        //this.bonusX = generateRandomNumberX();
+        //this.bonusY = generateRandomNumberY();
     }
 
-    public Integer generateRandomNumber(){
+    public Integer generateRandomNumberX() {
         Random rand = new Random();
-        int n = rand.nextInt(50)+1;
+        int n = rand.nextInt(40);
         return n;
     }
 
-    public Integer getBonus() {
-        return bonus;
+    public Integer generateRandomNumberY() {
+        Random rand = new Random();
+        int n = rand.nextInt(60);
+        return n;
     }
 
-    public void setBonus(Integer bonus) {
-        this.bonus = bonus;
-    }
 }

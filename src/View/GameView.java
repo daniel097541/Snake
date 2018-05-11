@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Server.Server;
+
 /**
  *
  * @author Juan Enrique
@@ -25,6 +26,9 @@ public class GameView extends javax.swing.JFrame {
     int inicialY;
     int direccion = 3;
     SnakePanel p;
+    int tesoroX = 0;
+    int tesoroY = 0;
+
     /**
      * Creates new form GameView2
      */
@@ -40,13 +44,20 @@ public class GameView extends javax.swing.JFrame {
         inicial.setBackground(Color.red);
         inicialX = 0;
         inicialY = 0;
-        this.p=p;
+        
+        this.p = p;
+        
+        tesoroX = this.p.getBonus().generateRandomNumberX();
+        tesoroY = this.p.getBonus().generateRandomNumberY();
+        System.out.println(tesoroX+" , "+tesoroY);
+        matriz[tesoroX][tesoroY].setBackground(Color.yellow);
+
+
     }
 
     private GameView() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,6 +100,8 @@ public class GameView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   
+    
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_P) {
             boolean pausa = true;
@@ -151,6 +164,18 @@ public class GameView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+    
+    public void treasures(int xAux, int yAux) {
+        if((xAux==tesoroX)&&(yAux==tesoroY)){
+            //Aqui faltaria lo de los puntos
+            matriz[xAux][yAux].setBackground(Color.white);
+            tesoroX = this.p.getBonus().generateRandomNumberX();
+            tesoroY = this.p.getBonus().generateRandomNumberY();
+            System.out.println(tesoroX+" , "+tesoroY);
+            matriz[tesoroX][tesoroY].setBackground(Color.yellow);
+        }
+    }
+    
 
     public void actualizarPosicion(java.awt.event.KeyEvent evt) {
         JPanel auxiliar;
@@ -205,9 +230,10 @@ public class GameView extends javax.swing.JFrame {
                 inicialY--;
                 matriz[inicialX][inicialY].setBackground(Color.red);
             }
+            treasures(inicialX, inicialY);
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
             String result;
-            JOptionPane.showMessageDialog(null,"¡Has perdido por llegar a la frontera!");
+            JOptionPane.showMessageDialog(null, "¡Has perdido por llegar a la frontera!");
             System.exit(0);
         }
     }
