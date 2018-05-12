@@ -2,6 +2,7 @@ package Server;
 
 import Model.Player;
 import Model.SnakePanel;
+import Packets.ErrorPacket;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class Server extends Thread{
     public static void main(String[] args) {
         ServerSocket serverShocket = null;
         try {
-            serverShocket = new ServerSocket(8000);
+            serverShocket = new ServerSocket(7000);
             System.out.println ("Creado el Socket del servidor");
             try {
                 while(true) {
@@ -30,11 +31,15 @@ public class Server extends Thread{
             }
             catch (IOException e) {
                 System.err.println("Fallo del Accept.");
+                //String [] argus = {"Fallo del Accept."};
+                //ErrorPacket err = new ErrorPacket(argus);
                 System.exit(1);
             }
         }
         catch (IOException e) {
-            System.err.println("No puedo escuchar en el puerto: 8000.");
+            System.err.println("No puedo escuchar en el puerto: 7000.");
+            //String [] argus = {"No puedo escuchar en el puerto: 7000"};
+            //ErrorPacket err = new ErrorPacket(argus);
             System.exit(1);
         }
         finally {
@@ -43,6 +48,8 @@ public class Server extends Thread{
             }
             catch (IOException e){
                 System.err.println("No puedo cerrar el puerto");
+                //String [] argus = {"No puedo cerrar el puerto"};
+                //ErrorPacket err = new ErrorPacket(argus);
                 System.exit(1);
             }
         }

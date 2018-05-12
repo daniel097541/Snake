@@ -6,6 +6,7 @@ public class Bonus {
 
     private Integer bonusX;
     private Integer bonusY;
+    private Integer points;
 
     public Bonus() {
         //this.bonusX = generateRandomNumberX();
@@ -21,6 +22,12 @@ public class Bonus {
     public Integer generateRandomNumberY() {
         Random rand = new Random();
         int n = rand.nextInt(60);
+        return n;
+    }
+
+    public Integer generateRandomPoints() {
+        Random rand = new Random();
+        int n = rand.nextInt(100);
         return n;
     }
 

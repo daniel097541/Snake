@@ -12,6 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import Packets.DirectionPacket;
+import Packets.MovementPacket;
+import Packets.PointsPacket;
 import Server.Server;
 
 /**
@@ -51,6 +55,7 @@ public class GameView extends javax.swing.JFrame {
         tesoroY = this.p.getBonus().generateRandomNumberY();
         System.out.println(tesoroX+" , "+tesoroY);
         matriz[tesoroX][tesoroY].setBackground(Color.yellow);
+
 
 
     }
@@ -175,6 +180,15 @@ public class GameView extends javax.swing.JFrame {
             matriz[tesoroX][tesoroY].setBackground(Color.yellow);
         }
     }
+
+    public void detectarTesoros(){
+        if((inicialX == tesoroX)||(inicialY == tesoroY)){
+            Integer points = this.p.getBonus().generateRandomPoints();
+            //String [] args = {"ID",String.valueOf(points)};
+            //PointsPacket pointsPacket = new PointsPacket(args);
+            treasures(inicialX,inicialY);
+        }
+    }
     
 
     public void actualizarPosicion(java.awt.event.KeyEvent evt) {
@@ -186,24 +200,32 @@ public class GameView extends javax.swing.JFrame {
             inicialX--;
             matriz[inicialX][inicialY].setBackground(Color.red);
             direccion = 1;
+            //String [] args = {"ARRIBA"};
+            //DirectionPacket dir = new DirectionPacket(args);
         }
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {//movimiento hacia abajo            
             matriz[inicialX][inicialY].setBackground(Color.white);
             inicialX++;
             matriz[inicialX][inicialY].setBackground(Color.red);
             direccion = 2;
+            //String [] args = {"ABAJO"};
+            //DirectionPacket dir = new DirectionPacket(args);
         }
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {//movimiento hacia la derecha
             matriz[inicialX][inicialY].setBackground(Color.white);
             inicialY++;
             matriz[inicialX][inicialY].setBackground(Color.red);
             direccion = 3;
+            //String [] args = {"DER"};
+            //DirectionPacket dir = new DirectionPacket(args);
         }
         if (evt.getKeyCode() == KeyEvent.VK_LEFT) {//movimiento hacia la izquierda
             matriz[inicialX][inicialY].setBackground(Color.white);
             inicialY--;
             matriz[inicialX][inicialY].setBackground(Color.red);
             direccion = 4;
+            //String [] args = {"IZQ"};
+            //DirectionPacket dir = new DirectionPacket(args);
         }
     }
 
@@ -214,23 +236,31 @@ public class GameView extends javax.swing.JFrame {
                 matriz[inicialX][inicialY].setBackground(Color.white);
                 inicialX--;
                 matriz[inicialX][inicialY].setBackground(Color.red);
+                //String [] args = {"ID",String.valueOf(inicialX),String.valueOf(inicialY),String.valueOf(inicialX++),String.valueOf(inicialY)};
+                //MovementPacket mov = new MovementPacket(args);
             }
             if (direccion == 2) {
                 matriz[inicialX][inicialY].setBackground(Color.white);
                 inicialX++;
                 matriz[inicialX][inicialY].setBackground(Color.red);
+                //String [] args = {"ID",String.valueOf(inicialX),String.valueOf(inicialY),String.valueOf(inicialX--),String.valueOf(inicialY)};
+                //MovementPacket mov = new MovementPacket(args);
             }
             if (direccion == 3) {
                 matriz[inicialX][inicialY].setBackground(Color.white);
                 inicialY++;
                 matriz[inicialX][inicialY].setBackground(Color.red);
+                //String [] args = {"ID",String.valueOf(inicialX),String.valueOf(inicialY),String.valueOf(inicialX),String.valueOf(inicialY--)};
+                //MovementPacket mov = new MovementPacket(args);
             }
             if (direccion == 4) {
                 matriz[inicialX][inicialY].setBackground(Color.white);
                 inicialY--;
                 matriz[inicialX][inicialY].setBackground(Color.red);
+                //String [] args = {"ID",String.valueOf(inicialX),String.valueOf(inicialY),String.valueOf(inicialX),String.valueOf(inicialY++)};
+                //MovementPacket mov = new MovementPacket(args);
             }
-            treasures(inicialX, inicialY);
+            //treasures(inicialX, inicialY);
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
             String result;
             JOptionPane.showMessageDialog(null, "¡Has perdido por llegar a la frontera!");

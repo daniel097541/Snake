@@ -22,6 +22,16 @@ public class SnakePanel extends Thread {
         pausa = false;
     }
 
+    public Player buscarJugPorId(Integer id){
+        Player resultado = null;
+        for(Player p: players){
+            if(p.getId().equals(id)){
+                resultado = p;
+            }
+        }
+        return resultado;
+    }
+
     public Bonus getBonus() {
         return bonus;
     }

@@ -25,7 +25,7 @@ public class Client {
         
         try {
             ServerIPView ipView = new ServerIPView();
-            dataShocket = new Socket(ipView.getIp(), 8000);
+            dataShocket = new Socket(ipView.getIp(), 7000);
             serverWrrite = new PrintWriter(dataShocket.getOutputStream(), true);
             serverRead = new BufferedReader(new InputStreamReader(dataShocket.getInputStream()));
         } catch (UnknownHostException e) {
@@ -39,7 +39,7 @@ public class Client {
         try {
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
             //Habria que mandar el jugador al SnakePanel del servidor snakepanel.getPlayers.add(player);
-            StartView view = new StartView(3);
+            //StartView view = new StartView(3);
             //SnakePanel s = new SnakePanel();
             //s.start();
             String linea = "bla";
