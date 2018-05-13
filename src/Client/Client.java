@@ -1,33 +1,38 @@
 package Client;
 
-import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import Model.Player;
-import Model.SnakePanel;
-import View.GameView;
 import View.ServerIPView;
-import View.StartView;
 
-public class Client {
+public class Client extends Thread{
+
+
+    private static Socket dataSoket;
+    private static InputStream input;
+    private static OutputStream output;
 
     public static void main(String[] args){
 
+        new Client();
+    }
+
+
+    private Client() {
+        run();
+    }
+
+    public void run(){
         String hostName= "localhost";
-        Socket dataShocket = null;
         PrintWriter serverWrrite = null;
         BufferedReader serverRead = null;
-        
-        
         try {
             ServerIPView ipView = new ServerIPView();
-            dataShocket = new Socket(ipView.getIp(), 7000);
-            serverWrrite = new PrintWriter(dataShocket.getOutputStream(), true);
-            serverRead = new BufferedReader(new InputStreamReader(dataShocket.getInputStream()));
+            dataSoket = new Socket(ipView.getIp(), 7000);
+            input = dataSoket.getInputStream();
+            output = dataSoket.getOutputStream();
+            serverWrrite = new PrintWriter(output, true);
+            serverRead = new BufferedReader(new InputStreamReader(input));
         } catch (UnknownHostException e) {
             System.err.println("No encuentro el host: " + hostName);
             System.exit(1);
@@ -37,7 +42,7 @@ public class Client {
         }
 
         try {
-            BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             //Habria que mandar el jugador al SnakePanel del servidor snakepanel.getPlayers.add(player);
             //StartView view = new StartView(3);
             //SnakePanel s = new SnakePanel();
@@ -49,7 +54,7 @@ public class Client {
                     s.setPausa(true);
                 }
                 if(linea.equals("reanudar")){
-            
+
                 s.setPausa(false);
                 }
                 */
@@ -57,15 +62,15 @@ public class Client {
                 serverWrrite.println(linea);
                 System.out.println("eco: " + serverRead.readLine());
                 System.out.print ("entrada cliente 2: ");
-                linea = input.readLine();
+                linea = reader.readLine();
             }
 
             System.out.println("Terminando el cliente");
 
             serverWrrite.close();
             serverRead.close();
-            input.close();
-            dataShocket.close();
+            reader.close();
+            dataSoket.close();
         }
         catch (Exception e ) {
             e.printStackTrace();

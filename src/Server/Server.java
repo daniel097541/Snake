@@ -58,6 +58,7 @@ public class Server extends Thread{
     private Server(Socket clientSoc) {
         dataShocket = clientSoc;
         snakePanel.start();
+        run();
     }
 
     public void run() {
