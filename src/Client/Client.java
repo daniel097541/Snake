@@ -11,21 +11,16 @@ public class Client extends Thread{
     private static Socket dataSoket;
     private static InputStream input;
     private static OutputStream output;
+    private final String HOST_NAME = "localhost";
+    private PrintWriter serverWrrite = null;
+    BufferedReader serverRead = null;
 
     public static void main(String[] args){
-
         new Client();
     }
 
 
     private Client() {
-        run();
-    }
-
-    public void run(){
-        String hostName= "localhost";
-        PrintWriter serverWrrite = null;
-        BufferedReader serverRead = null;
         try {
             ServerIPView ipView = new ServerIPView();
             dataSoket = new Socket(ipView.getIp(), 7000);
@@ -34,12 +29,16 @@ public class Client extends Thread{
             serverWrrite = new PrintWriter(output, true);
             serverRead = new BufferedReader(new InputStreamReader(input));
         } catch (UnknownHostException e) {
-            System.err.println("No encuentro el host: " + hostName);
+            System.err.println("No encuentro el host: " + HOST_NAME);
             System.exit(1);
         } catch (IOException e) {
-            System.err.println("No puedo enlazar la entrada/salida " + "en la conexión a: " + hostName);
+            System.err.println("No puedo enlazar la entrada/salida " + "en la conexión a: " + HOST_NAME);
             System.exit(1);
         }
+        run();
+    }
+
+    public void run(){
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

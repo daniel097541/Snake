@@ -1,8 +1,6 @@
 package Server;
 
-import Model.Player;
 import Model.SnakePanel;
-import Packets.ErrorPacket;
 
 import java.io.BufferedReader;
 import java.io.IOException;
